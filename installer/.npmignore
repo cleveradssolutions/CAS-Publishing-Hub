@@ -1,0 +1,19 @@
+# Not shipped to the registry — authoring/reference only.
+# NOTE: exclude the folder .meta too, otherwise an orphaned folder-meta ships without its
+# folder and Unity warns + recreates an empty dir in the consumer project.
+.claude/
+.superpowers/
+docs/
+docs.meta
+doc/
+doc.meta
+Editor/Wizard/Icons/src/
+Editor/Wizard/Icons/src.meta
+out/
+out.meta
+
+# Edition-build machinery / output — Tools~/build-edition.mjs and its dist/<edition>
+# artifacts. Never part of a published tarball (dist/external ships separately).
+Tools~/
+dist/
+dist.meta

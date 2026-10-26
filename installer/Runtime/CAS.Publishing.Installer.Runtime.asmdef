@@ -1,0 +1,20 @@
+{
+    "name": "CAS.Publishing.Installer.Runtime",
+    "rootNamespace": "CAS.Publishing.Installer.Runtime",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.cleversolutions.ads.unity",
+            "expression": "4.0.2",
+            "define": "CAS_SDK_PRESENT"
+        }
+    ],
+    "noEngineReferences": false
+}

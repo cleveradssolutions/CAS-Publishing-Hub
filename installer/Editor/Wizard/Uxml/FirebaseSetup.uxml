@@ -1,0 +1,31 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="cas-screen">
+        <ui:VisualElement class="cas-body">
+
+            <ui:Label text="Firebase setup" class="cas-h2" />
+            <ui:Label name="fb-sub" text="Connect Firebase Analytics for attribution and event tracking." class="cas-sub" style="margin-bottom: 14px;" />
+
+            <ui:Button name="fb-console" text="Open Firebase Console" class="cas-btn cas-btn--muted cas-btn--sm cas-btn--block" style="margin-bottom: 12px;" />
+
+            <ui:VisualElement name="fb-drop" class="cas-card" style="flex-direction: column; align-items: center; width: 100%;">
+                <ui:Label name="fb-drop-title" text="Click to choose a file" class="cas-card__title" />
+                <ui:Label name="fb-drop-sub" text="google-services.json" class="cas-card__desc" />
+            </ui:VisualElement>
+
+            <ui:VisualElement name="fb-warn" class="cas-warning" style="display: none; margin-top: 12px;">
+                <ui:Label name="fb-warn-text" text="" class="cas-warning__text" />
+            </ui:VisualElement>
+
+            <ui:Label name="fb-ok" text="" class="cas-notes" style="display: none; margin-top: 12px;" />
+
+            <ui:Label text="A file already in the project can also be dragged here from the Project window." class="cas-notes" style="margin-top: 12px;" />
+
+        </ui:VisualElement>
+
+        <ui:VisualElement class="cas-footer">
+            <ui:Button name="fb-skip" text="Skip" class="cas-btn cas-btn--muted cas-btn--sm" />
+            <ui:VisualElement class="cas-spacer" />
+            <ui:Button name="fb-continue" text="Continue" class="cas-btn cas-btn--primary cas-btn--sm" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,36 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="cas-screen">
+        <ui:VisualElement class="cas-body">
+
+            <ui:Label text="About" class="cas-h2" />
+            <ui:Label text="CAS.AI Publishing Hub" class="cas-sub" style="margin-bottom: 14px;" />
+
+            <ui:VisualElement class="cas-row" style="align-items: flex-start;">
+                <ui:VisualElement style="flex-grow: 1;">
+                    <ui:VisualElement class="cas-verrow cas-verrow--bd">
+                        <ui:Label text="Installed version:" class="cas-ver-label" />
+                        <ui:Label name="about-current" text="—" class="cas-ver-value" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="cas-verrow">
+                        <ui:Label text="Latest version:" class="cas-ver-label" />
+                        <ui:Label name="about-latest" text="checking…" class="cas-ver-value" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="cas-icon cas-icon--download-big" style="width: 56px; height: 56px; margin-left: 22px;" />
+            </ui:VisualElement>
+
+            <ui:Label name="about-status" class="cas-sub" style="margin-top: 12px; margin-bottom: 12px;" />
+
+            <ui:Label text="Release notes" class="cas-section-title" />
+            <ui:ScrollView class="cas-table-scroll" mode="Vertical">
+                <ui:Label name="about-notes" class="cas-notes" />
+            </ui:ScrollView>
+
+        </ui:VisualElement>
+
+        <ui:VisualElement class="cas-footer">
+            <ui:Button name="about-check" text="↻  Check for updates" class="cas-btn cas-btn--soft" style="padding-top: 9px; padding-bottom: 9px;" />
+            <ui:Button name="about-update" text="Update" class="cas-btn cas-btn--primary" style="min-width: 110px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

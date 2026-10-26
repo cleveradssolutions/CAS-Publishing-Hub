@@ -1,0 +1,59 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="cas-screen">
+        <ui:VisualElement class="cas-body">
+
+            <ui:Label text="Main Components" class="cas-h2" />
+            <ui:Label text="Check the status of required components." class="cas-sub" style="margin-bottom: 14px;" />
+
+            <ui:ScrollView name="components-scroll" class="cas-table-scroll" mode="Vertical">
+
+                <ui:VisualElement class="cas-table__head">
+                    <ui:Label text="SDK" class="cas-th cas-col-comp" />
+                    <ui:Label text="VERSION" class="cas-th cas-col-version" />
+                    <ui:Label text="STATUS" class="cas-th cas-col-status" />
+                    <ui:Label text="ACTION" class="cas-th cas-col-action" />
+                    <ui:Label text="REMOVE" class="cas-th cas-col-remove" />
+                </ui:VisualElement>
+
+                <ui:VisualElement name="components-rows" class="cas-table" />
+
+                <ui:VisualElement class="cas-legend" style="margin-top: 12px; margin-bottom: 18px;">
+                    <ui:VisualElement class="cas-legend__item" style="margin-left: 0;">
+                        <ui:VisualElement class="cas-dot cas-dot--green" />
+                        <ui:Label text="Up to date" class="cas-legend__label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="cas-legend__item">
+                        <ui:VisualElement class="cas-dot cas-dot--yellow" />
+                        <ui:Label text="Update required" class="cas-legend__label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="cas-legend__item">
+                        <ui:VisualElement class="cas-dot cas-dot--red" />
+                        <ui:Label text="Not installed" class="cas-legend__label" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement class="cas-infobox cas-infobox--green">
+                    <ui:Label text="Connect to Hub switches a manually installed package to CAS's UPM registry. Once connected, Hub takes over version tracking and will prompt you to update whenever a newer stable release is available." class="cas-infobox__text" />
+                </ui:VisualElement>
+
+                <ui:Label text="ADDITIONAL COMPONENTS" class="cas-section-title" style="margin-top: 22px;" />
+
+                <ui:VisualElement class="cas-table__head">
+                    <ui:Label text="SDK" class="cas-th cas-col-comp" />
+                    <ui:Label text="VERSION" class="cas-th cas-col-version" />
+                    <ui:Label text="STATUS" class="cas-th cas-col-status" />
+                    <ui:Label text="ACTION" class="cas-th cas-col-action" />
+                    <ui:Label text="REMOVE" class="cas-th cas-col-remove" />
+                </ui:VisualElement>
+
+                <ui:VisualElement name="additional-rows" class="cas-table" />
+
+            </ui:ScrollView>
+
+        </ui:VisualElement>
+
+        <ui:VisualElement class="cas-footer">
+            <ui:Button name="components-refresh" text="↻  Refresh" class="cas-btn cas-btn--soft cas-btn--sm" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

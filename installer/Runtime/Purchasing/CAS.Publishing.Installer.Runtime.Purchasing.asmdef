@@ -1,0 +1,37 @@
+{
+    "name": "CAS.Publishing.Installer.Runtime.Purchasing",
+    "rootNamespace": "CAS.Publishing.Installer.Runtime",
+    "references": [
+        "CleverAdsSolutions",
+        "Unity.Purchasing",
+        "UnityEngine.Purchasing"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_PURCHASING",
+        "CAS_SDK_PRESENT"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.unity.purchasing",
+            "expression": "4.0.0",
+            "define": "UNITY_PURCHASING"
+        },
+        {
+            "name": "com.unity.purchasing",
+            "expression": "5.0.0",
+            "define": "UNITY_PURCHASING_5"
+        },
+        {
+            "name": "com.cleversolutions.ads.unity",
+            "expression": "4.0.2",
+            "define": "CAS_SDK_PRESENT"
+        }
+    ],
+    "noEngineReferences": false
+}

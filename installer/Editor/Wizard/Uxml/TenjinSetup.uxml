@@ -1,0 +1,36 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="cas-screen">
+        <ui:VisualElement class="cas-body">
+
+            <ui:Label text="Tenjin SDK key" class="cas-h2" />
+            <ui:Label name="tj-sub" text="CAS initializes the Tenjin SDK with this key and reports attribution, ad revenue and purchases through it." class="cas-sub" style="margin-bottom: 14px;" />
+
+            <ui:Button name="tj-dashboard" text="Open Tenjin dashboard" class="cas-btn cas-btn--muted cas-btn--sm cas-btn--block" style="margin-bottom: 12px;" />
+
+            <ui:Label name="tj-label" text="ANDROID KEY" class="cas-label" style="margin-bottom: 6px;" />
+            <ui:VisualElement class="cas-input-wrap">
+                <ui:TextField name="tj-key" class="cas-input" />
+                <ui:Label name="tj-key-ph" picking-mode="Ignore" class="cas-input__ph" />
+            </ui:VisualElement>
+            <ui:Label text="Tenjin dashboard → your app → SDK key. One key per platform."
+                      class="cas-muted" style="margin-top: 6px;" />
+
+            <ui:VisualElement name="tj-warn" class="cas-warning" style="display: none; margin-top: 12px;">
+                <ui:Label name="tj-warn-text" text="" class="cas-warning__text" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="cas-card" style="flex-direction: column; align-items: stretch; width: 100%; margin-top: 14px;">
+                <ui:Label text="In your code" class="cas-card__title" />
+                <ui:Label text="Add one call where CAS is initialized — it hands the key to CAS, and CAS takes it from there:" class="cas-card__desc" />
+                <ui:Label name="tj-snippet" text="using CAS.Publishing.Installer.Runtime;&#10;&#10;MobileAds.BuildManager()&#10;    .WithPublishingSettings()&#10;    .Initialize();" class="cas-card__desc" style="margin-top: 6px; white-space: normal;" />
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+        <ui:VisualElement class="cas-footer">
+            <ui:Button name="tj-skip" text="Skip" class="cas-btn cas-btn--muted cas-btn--sm" />
+            <ui:VisualElement class="cas-spacer" />
+            <ui:Button name="tj-continue" text="Continue" class="cas-btn cas-btn--primary cas-btn--sm" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

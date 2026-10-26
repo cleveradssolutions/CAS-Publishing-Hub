@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="cas-window" class="cas-window">
+
+        <ui:VisualElement name="cas-tabbar" class="cas-tabbar">
+            <ui:Button name="tab-components" text="Components" class="cas-tab" />
+            <ui:Button name="tab-configure" text="Configuration" class="cas-tab" />
+            <ui:Button name="tab-about" text="About" class="cas-tab" />
+            <ui:VisualElement class="cas-spacer" />
+            <ui:Button name="btn-setup-wizard" text="↺ Setup Wizard" class="cas-btn cas-btn--muted cas-btn--sm" style="align-self: center; margin-right: 8px;" />
+        </ui:VisualElement>
+
+        <!-- Shown instead of the tab bar while inside the pre-intro 3-step flow (Ready → Progress →
+             Configure → Done); hidden once IntroDone. Text/classes are swapped per-step from
+             C# (InstallerWizardWindow.UpdateStepper). -->
+        <ui:VisualElement name="cas-stepper" class="cas-stepper">
+            <ui:Label name="step-install" text="1 Install" class="cas-introstep" />
+            <ui:VisualElement name="cas-stepper__line-1" class="cas-introstep__line" />
+            <ui:Label name="step-configure" text="2 Configure" class="cas-introstep" />
+            <ui:VisualElement name="cas-stepper__line-2" class="cas-introstep__line" />
+            <ui:Label name="step-done" text="3 Done" class="cas-introstep" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="cas-content" class="cas-content" />
+
+    </ui:VisualElement>
+</ui:UXML>

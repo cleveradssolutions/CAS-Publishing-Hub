@@ -1,0 +1,28 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="cas-screen">
+        <ui:VisualElement class="cas-body cas-done">
+
+            <ui:VisualElement class="cas-icon cas-icon--big-check" style="width: 84px; height: 84px; margin-top: 16px; margin-bottom: 6px;" />
+
+            <ui:Label text="Setup complete" class="cas-h2--big" style="margin-top: 0;" />
+            <ui:Label text="Your CAS ID was applied automatically. CAS and Firebase Analytics were configured and checked." class="cas-sub cas-sub--center" style="margin-bottom: 20px;" />
+
+            <ui:VisualElement name="done-list" class="cas-card" style="flex-direction: column; align-items: stretch; width: 100%; margin-bottom: 16px;" />
+
+            <ui:VisualElement class="cas-card" style="flex-direction: column; align-items: stretch; width: 100%;">
+                <ui:Label text="Next steps" class="cas-card__title" style="margin-bottom: 10px;" />
+                <ui:Label text="→ Add ad placements to your game" class="cas-bullet" />
+                <ui:Label text="→ Call .WithPublishingSettings() on the CAS builder where you initialize ads — it hands the Tenjin key to CAS" class="cas-bullet" />
+                <ui:Label text="→ On Unity IAP, report purchases with CASHub.ReportPurchase(product, order) — one call, CAS forwards it to Tenjin" class="cas-bullet" />
+                <ui:Button name="done-dashboard" text="→ Open CAS dashboard" class="cas-link" style="-unity-text-align: upper-left; background-color: rgba(0,0,0,0); border-width: 0; padding: 0; margin-bottom: 3px; margin-top: 3px;" />
+                <ui:Label text="→ Re-open this installer anytime: Assets → CleverAdsSolutions → Hub" class="cas-bullet" />
+                <ui:Button name="btn-components" text="Components" class="cas-btn cas-btn--primary cas-btn--block" style="margin-top: 14px;" />
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+        <ui:VisualElement class="cas-footer" style="justify-content: flex-end;">
+            <ui:Button name="btn-close" text="Close" class="cas-btn cas-btn--primary cas-btn--sm" style="min-width: 100px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

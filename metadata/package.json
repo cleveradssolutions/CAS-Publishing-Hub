@@ -1,0 +1,16 @@
+{
+  "name": "ai.cas.installer.metadata",
+  "version": "1.0.9",
+  "displayName": "CAS Publishing Hub Metadata",
+  "description": "Dynamic catalog of CAS publishing packages managed by ai.cas.installer.",
+  "unity": "2022.3",
+  "license": "UNLICENSED",
+  "author": {
+    "name": "CAS Publishing"
+  },
+  "keywords": [
+    "installer",
+    "metadata",
+    "catalog"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "name": "ai.cas.installer",
+  "version": "1.0.9",
+  "displayName": "CAS Publishing Hub",
+  "description": "One-click Editor installer for the CAS publishing SDK.",
+  "unity": "2022.3",
+  "license": "UNLICENSED",
+  "author": {
+    "name": "CAS Publishing"
+  },
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.2.1"
+  },
+  "publishConfig": {
+    "registry": "https://npm.cas.ai/"
+  },
+  "samples": [
+    {
+      "displayName": "Ads Manager template",
+      "description": "A self-bootstrapping ads facade over CAS (interstitial, rewarded, banner) that initializes with the Hub's publishing settings. Copy into the game when it has no ads manager of its own.",
+      "path": "Samples~/AdsManager"
+    }
+  ],
+  "keywords": [
+    "installer",
+    "editor",
+    "package-manager"
+  ],
+  "documentationUrl": "https://github.com/cleveradssolutions/CAS-Publishing-Hub/blob/main/installer/Documentation~/user-guide.md"
+}

@@ -1,0 +1,10 @@
+# Publish artifacts — `upm pack` / `npm pack` output. Regenerable, never committed,
+# and must stay out of the Unity-imported package tree (else Unity generates .meta
+# for the tarballs and warns when they're cleaned outside the editor).
+out/
+out.meta
+*.tgz
+
+# Tools~/build-edition.mjs output — regenerable edition builds, never committed.
+dist/
+dist.meta

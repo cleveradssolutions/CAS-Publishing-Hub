@@ -1,0 +1,63 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="cas-screen">
+        <ui:VisualElement class="cas-body">
+
+            <ui:Label text="Placements" class="cas-h2" />
+            <ui:Label text="Choose which ad formats to enable. At least one is required." class="cas-sub" style="margin-bottom: 14px;" />
+
+            <ui:VisualElement class="cas-card" style="flex-direction: column; align-items: stretch; width: 100%;">
+
+                <ui:VisualElement class="cas-row" style="margin-bottom: 12px;">
+                    <ui:Toggle name="pl-banner" style="margin-right: 8px;" />
+                    <ui:VisualElement style="flex-direction: column; flex-grow: 1;">
+                        <ui:Label text="Banner" class="cas-comp__name" />
+                        <ui:Label text="Rectangular ads that occupy a portion of the layout." class="cas-comp__sub" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement class="cas-row" style="margin-bottom: 12px;">
+                    <ui:Toggle name="pl-interstitial" style="margin-right: 8px;" />
+                    <ui:VisualElement style="flex-direction: column; flex-grow: 1;">
+                        <ui:Label text="Interstitial" class="cas-comp__name" />
+                        <ui:Label text="Full-page ad shown at natural breaks." class="cas-comp__sub" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement class="cas-row" style="margin-bottom: 12px;">
+                    <ui:Toggle name="pl-rewarded" style="margin-right: 8px;" />
+                    <ui:VisualElement style="flex-direction: column; flex-grow: 1;">
+                        <ui:Label text="Rewarded" class="cas-comp__name" />
+                        <ui:Label text="Rewards users for watching ads." class="cas-comp__sub" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement class="cas-row">
+                    <ui:Toggle name="pl-appopen" style="margin-right: 8px;" />
+                    <ui:VisualElement style="flex-direction: column; flex-grow: 1;">
+                        <ui:Label text="App Open" class="cas-comp__name" />
+                        <ui:Label text="Shown when the app returns to the foreground." class="cas-comp__sub" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+
+            <ui:VisualElement name="pl-solution-block" class="cas-card cas-card--warn"
+                              style="display: none; flex-direction: column; align-items: stretch; width: 100%; margin-top: 12px;">
+                <ui:Label name="pl-solution-title" text="This project already uses its own CAS mediation solution"
+                          class="cas-card__title" />
+                <ui:Label text="The Publishing solution replaces it. Keeping both makes the dependency resolver report a duplicate for every shared adapter."
+                          class="cas-card__desc" style="margin-bottom: 10px;" />
+                <ui:Toggle name="pl-solution-switch" label="Switch to the Publishing solution" />
+            </ui:VisualElement>
+
+            <ui:Label name="pl-note" text="Tenjin MMP is enabled automatically — it is what reports attribution and purchases."
+                      class="cas-notes" style="margin-top: 12px;" />
+
+        </ui:VisualElement>
+
+        <ui:VisualElement class="cas-footer">
+            <ui:VisualElement class="cas-spacer" />
+            <ui:Button name="pl-continue" text="Continue" class="cas-btn cas-btn--primary cas-btn--sm" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,33 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="cas-screen">
+        <ui:VisualElement class="cas-body">
+
+            <ui:Label text="Welcome" class="cas-h1" />
+            <ui:Label text="Choose a platform and enter your CAS ID."
+                      class="cas-sub cas-sub--center" />
+
+            <ui:VisualElement style="margin-top: 18px;">
+                <ui:Label text="PLATFORM" class="cas-label" style="margin-bottom: 6px;" />
+                <ui:VisualElement name="welcome-platform-seg" class="cas-seg" style="margin-bottom: 14px;">
+                    <ui:Button name="welcome-tab-android" text="Android" class="cas-btn cas-btn--sm cas-seg__item" />
+                    <ui:Button name="welcome-tab-ios" text="iOS" class="cas-btn cas-btn--sm cas-seg__item" />
+                </ui:VisualElement>
+
+                <ui:Label text="CAS ID" class="cas-label" style="margin-bottom: 6px;" />
+                <ui:VisualElement class="cas-input-wrap">
+                    <ui:TextField name="welcome-casid" class="cas-input" />
+                    <ui:Label name="welcome-casid-ph" picking-mode="Ignore" class="cas-input__ph" />
+                </ui:VisualElement>
+                <ui:Label name="welcome-casid-hint"
+                          text="Used to automatically configure CAS Settings after install."
+                          class="cas-muted" style="margin-top: 6px;" />
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+        <ui:VisualElement class="cas-footer">
+            <ui:Label name="welcome-version" text="v0.0.0" class="cas-muted" />
+            <ui:Button name="welcome-next" text="Continue" class="cas-btn cas-btn--primary" style="min-width: 100px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

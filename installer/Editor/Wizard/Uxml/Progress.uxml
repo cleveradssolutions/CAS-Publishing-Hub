@@ -1,0 +1,40 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="cas-screen">
+        <ui:VisualElement class="cas-body">
+
+            <ui:Label name="progress-title" text="Installation Progress" class="cas-h2" />
+            <ui:Label name="progress-subtitle" text="" class="cas-sub" style="display: none; margin-bottom: 4px;" />
+
+            <ui:VisualElement name="progress-steps" style="margin-top: 16px;" />
+
+            <ui:VisualElement name="fail-panel" class="cas-card" style="display: none; margin-top: 16px; flex-direction: column; align-items: flex-start; border-color: #D8534F;">
+                <ui:Label name="fail-title" text="" class="cas-card__title" style="color: #E58783;" />
+                <ui:Label name="fail-message" text="" class="cas-card__desc" style="margin-bottom: 12px;" />
+                <ui:VisualElement style="flex-direction: row;">
+                    <ui:Button name="btn-retry-step" text="Retry step" class="cas-btn cas-btn--primary" style="margin-right: 8px;" />
+                    <ui:Button name="btn-copy-log" text="Copy log" class="cas-btn cas-btn--soft" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="done-panel" class="cas-card cas-card--green" style="display: none; margin-top: 16px; flex-direction: column; align-items: flex-start;">
+                <ui:Label text="✓ All components installed" class="cas-card__title" />
+                <ui:Label text="The project is fully prepared. You can continue to configuration and finalize plugin settings." class="cas-card__desc" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="cas-spacer" />
+
+            <ui:VisualElement style="padding-top: 16px;">
+                <ui:VisualElement class="cas-progress">
+                    <ui:VisualElement name="progress-fill" class="cas-progress__fill" />
+                </ui:VisualElement>
+                <ui:Label name="progress-pct" text="56%" class="cas-progress__pct" />
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+        <ui:VisualElement class="cas-footer" style="justify-content: center;">
+            <ui:Button name="btn-cancel" text="Cancel" class="cas-btn" style="min-width: 100px;" />
+            <ui:Button name="btn-continue" text="Continue" class="cas-btn cas-btn--primary" style="min-width: 100px; display: none;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,19 @@
+{
+    "name": "CAS.Publishing.Installer.Wizard.Editor",
+    "rootNamespace": "CAS.Publishing.Installer.Wizard",
+    "references": [
+        "CAS.Publishing.Installer.Editor",
+        "CAS.Publishing.Installer.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,370 @@
+{
+  "schemaVersion": 1,
+  "catalogVersion": "1.0.9",
+  "registries": {
+    "openupm": "https://package.openupm.com",
+    "cas": "https://npm.cas.ai/"
+  },
+  "telemetry": {
+    "endpoint": "https://cas-pub-telemetry.psvgamestudio.com",
+    "key": "cCCv5HPNRQZDdKb9ZRS3WClT",
+    "enabled": true
+  },
+  "categories": [
+    {
+      "id": "core",
+      "displayName": "Core"
+    },
+    {
+      "id": "analytics",
+      "displayName": "Analytics"
+    },
+    {
+      "id": "ad",
+      "displayName": "Ads / Mediation"
+    },
+    {
+      "id": "iap",
+      "displayName": "In-App Purchases"
+    },
+    {
+      "id": "crash",
+      "displayName": "Crash Reporting"
+    },
+    {
+      "id": "debug",
+      "displayName": "Debug / Tools"
+    }
+  ],
+  "packages": [],
+  "external": [
+    {
+      "id": "com.cleversolutions.ads.unity",
+      "displayName": "CAS Mediation",
+      "registry": "openupm",
+      "installMethod": "git",
+      "registryFirst": true,
+      "scopes": [
+        "com.cleversolutions"
+      ],
+      "assetMarkers": [
+        "CleverAdsSolutions"
+      ],
+      "assetRoots": [
+        "CleverAdsSolutions"
+      ],
+      "category": "ad",
+      "versionType": "CAS.MobileAds",
+      "versionField": "wrapperVersion",
+      "minVersion": "4.8.3-beta1",
+      "recommendedVersion": "4.8.3-beta1",
+      "git": {
+        "packages": [
+          {
+            "id": "com.cleversolutions.ads.unity",
+            "url": "https://github.com/cleveradssolutions/CAS-Unity.git",
+            "tag": "4.8.3-beta1"
+          }
+        ]
+      },
+      "config": [
+        {
+          "platform": "Android",
+          "kind": "settingsAssetField",
+          "assetPath": "Assets/CleverAdsSolutions/Resources/CASSettingsAndroid.asset",
+          "field": "managerIds",
+          "placeholder": "demo",
+          "label": "CAS ID",
+          "openMenu": "Assets/CleverAdsSolutions/Settings",
+          "regex": "^[a-zA-Z][a-zA-Z0-9_]*(\\.[a-zA-Z][a-zA-Z0-9_]*)+$",
+          "hint": "com.company.gamename",
+          "editable": true,
+          "adFormats": true
+        },
+        {
+          "platform": "iOS",
+          "kind": "settingsAssetField",
+          "assetPath": "Assets/CleverAdsSolutions/Resources/CASSettingsiOS.asset",
+          "field": "managerIds",
+          "placeholder": "demo",
+          "label": "CAS ID",
+          "openMenu": "Assets/CleverAdsSolutions/Settings",
+          "regex": "^[0-9]+$",
+          "hint": "1234567890",
+          "editable": true,
+          "adFormats": true
+        },
+        {
+          "platform": "Android",
+          "kind": "publishingField",
+          "field": "tenjinKeyAndroid",
+          "label": "Tenjin key",
+          "regex": "^[A-Za-z0-9]+$",
+          "hint": "Tenjin SDK key",
+          "help": "https://www.tenjin.io/dashboard/apps"
+        },
+        {
+          "platform": "iOS",
+          "kind": "publishingField",
+          "field": "tenjinKeyIos",
+          "label": "Tenjin key",
+          "regex": "^[A-Za-z0-9]+$",
+          "hint": "Tenjin SDK key",
+          "help": "https://www.tenjin.io/dashboard/apps"
+        }
+      ]
+    },
+    {
+      "id": "com.google.external-dependency-manager",
+      "displayName": "External Dependency Manager (EDM4U)",
+      "registry": "cas",
+      "scopes": [
+        "com.google"
+      ],
+      "assetMarkers": [
+        "ExternalDependencyManager",
+        "PlayServicesResolver"
+      ],
+      "assetRoots": [
+        "ExternalDependencyManager",
+        "PlayServicesResolver"
+      ],
+      "category": "core",
+      "minVersion": "1.2.161",
+      "recommendedVersion": "1.2.186-psv.1",
+      "git": {
+        "packages": [
+          {
+            "id": "com.google.external-dependency-manager",
+            "url": "https://github.com/CAS-Publishing/external-dependency-manager.git",
+            "tag": "1.2.186-psv.1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "com.google.firebase.analytics",
+      "displayName": "Firebase",
+      "registry": "cas",
+      "scopes": [
+        "com.google"
+      ],
+      "assetMarkers": [
+        "Firebase"
+      ],
+      "modules": [
+        {
+          "id": "com.google.firebase.analytics",
+          "assetMarkers": [
+            "Firebase.Analytics"
+          ]
+        },
+        {
+          "id": "com.google.firebase.remote-config",
+          "assetMarkers": [
+            "Firebase.RemoteConfig"
+          ]
+        },
+        {
+          "id": "com.google.firebase.installations",
+          "assetMarkers": [
+            "Firebase.Installations"
+          ]
+        }
+      ],
+      "assetRoots": [
+        "Firebase",
+        "ExternalDependencyManager",
+        "PlayServicesResolver",
+        "Editor Default Resources/Firebase"
+      ],
+      "pluginFiles": [
+        "libFirebaseCppApp.a",
+        "libFirebaseCppAnalytics.a"
+      ],
+      "versionType": "Firebase.VersionInfo",
+      "versionField": "SdkVersion",
+      "git": {
+        "packages": [
+          {
+            "id": "com.google.firebase.analytics",
+            "url": "https://github.com/CAS-Publishing/firebase-analytics.git",
+            "tag": "13.1.0-psv.1"
+          },
+          {
+            "id": "com.google.firebase.app",
+            "url": "https://github.com/CAS-Publishing/firebase-app.git",
+            "tag": "13.1.0-psv.1"
+          },
+          {
+            "id": "com.google.external-dependency-manager",
+            "url": "https://github.com/CAS-Publishing/external-dependency-manager.git",
+            "tag": "1.2.186-psv.1"
+          }
+        ]
+      },
+      "category": "analytics",
+      "minVersion": "13.1.0-psv.1",
+      "recommendedVersion": "13.1.0-psv.1",
+      "config": [
+        {
+          "platform": "Android",
+          "kind": "assetFile",
+          "fileName": "google-services.json",
+          "label": "google-services.json",
+          "help": "https://console.firebase.google.com/"
+        },
+        {
+          "platform": "iOS",
+          "kind": "assetFile",
+          "fileName": "GoogleService-Info.plist",
+          "label": "GoogleService-Info.plist",
+          "help": "https://console.firebase.google.com/"
+        }
+      ]
+    }
+  ],
+  "overrides": {},
+  "uninstall": [
+    {
+      "legacyNpmIds": [
+        "cas.pub.tenjin"
+      ],
+      "reason": "The attribution wrapper is retired: CAS 4.8.1 initializes Tenjin itself, reports ad revenue and purchases (MobileAds.ReportPurchase), and logs the TenjinAttributionInfo event to Firebase.",
+      "codeMarkers": [
+        "TenjinProvider",
+        "TenjinSdkInitTracker",
+        "AdsAndPurchaseStatistics",
+        "BaseTenjin",
+        "TenjinSettings"
+      ],
+      "legacySettings": {
+        "resource": "TenjinSettings",
+        "androidKeyField": "androidKey",
+        "iosKeyField": "iOSKey"
+      }
+    },
+    {
+      "legacyNpmIds": [
+        "com.tenjin.sdk"
+      ],
+      "reason": "The native Tenjin SDK now ships with CAS as the TenjinMMP mediation entry — enable it in CAS Settings. A separate Unity plugin would duplicate the SDK.",
+      "codeMarkers": [
+        "Tenjin.getInstance",
+        "BaseTenjin"
+      ],
+      "assetRoots": [
+        "Tenjin"
+      ],
+      "legacyAssetFiles": [
+        {
+          "name": "BuildPostProcessor.cs",
+          "contains": [
+            "class BuildPostProcessor",
+            "TenjinSDK"
+          ]
+        },
+        {
+          "name": "Dependencies.xml",
+          "contains": [
+            "com.tenjin"
+          ]
+        },
+        {
+          "name": "TenjinAssetSelector.cs",
+          "contains": [
+            "TenjinAssetTree"
+          ]
+        },
+        {
+          "name": "TenjinEditorPrefs.cs",
+          "contains": [
+            "TenjinEditorPrefs"
+          ]
+        },
+        {
+          "name": "TenjinPackager.cs",
+          "contains": [
+            "TenjinPackager"
+          ]
+        },
+        {
+          "name": "BaseTenjin.cs",
+          "contains": [
+            "class BaseTenjin"
+          ]
+        },
+        {
+          "name": "Tenjin.cs",
+          "contains": [
+            "namespace TenjinSDK",
+            "class Tenjin"
+          ]
+        },
+        {
+          "name": "AndroidTenjin.cs",
+          "contains": [
+            "class AndroidTenjin",
+            "com.tenjin.android"
+          ]
+        },
+        {
+          "name": "IosTenjin.cs",
+          "contains": [
+            "class IosTenjin",
+            "iosTenjinInit"
+          ]
+        },
+        {
+          "name": "DebugTenjin.cs",
+          "contains": [
+            "class DebugTenjin",
+            "BaseTenjin"
+          ]
+        },
+        {
+          "name": "TenjinCASIntegration.cs",
+          "contains": [
+            "class TenjinCASIntegration"
+          ]
+        },
+        {
+          "name": "TenjinAdMobIntegration.cs",
+          "contains": [
+            "class TenjinAdMobIntegration"
+          ]
+        },
+        {
+          "name": "TenjinAppLovinIntegration.cs",
+          "contains": [
+            "class TenjinAppLovinIntegration"
+          ]
+        },
+        {
+          "name": "TenjinHyperBidIntegration.cs",
+          "contains": [
+            "class TenjinHyperBidIntegration"
+          ]
+        },
+        {
+          "name": "TenjinIronSourceIntegration.cs",
+          "contains": [
+            "class TenjinIronSourceIntegration"
+          ]
+        },
+        {
+          "name": "TenjinTopOnIntegration.cs",
+          "contains": [
+            "class TenjinTopOnIntegration"
+          ]
+        },
+        {
+          "name": "TenjinTradPlusIntegration.cs",
+          "contains": [
+            "class TenjinTradPlusIntegration"
+          ]
+        }
+      ]
+    }
+  ]
+}

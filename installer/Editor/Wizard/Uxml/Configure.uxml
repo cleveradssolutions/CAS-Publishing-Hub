@@ -1,0 +1,35 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="cas-screen">
+        <ui:VisualElement class="cas-body">
+
+            <ui:Label name="configure-title" text="Configuration" class="cas-h2" />
+            <ui:Label name="configure-subtitle" text="" class="cas-sub" style="margin-bottom: 12px;" />
+
+            <ui:VisualElement name="configure-table-wrap" style="flex-grow: 1; min-height: 0;">
+                <ui:VisualElement class="cas-setup-head">
+                    <ui:Label text="Component" class="cas-th cas-setup-col-comp" />
+                    <ui:Label name="hdr-platform" text="Android" class="cas-th cas-setup-col-plat" />
+                </ui:VisualElement>
+
+                <ui:ScrollView name="configure-scroll" class="cas-table-scroll" mode="Vertical">
+                    <ui:VisualElement name="config-table" class="cas-table" />
+                </ui:ScrollView>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="action-panels" style="flex-direction: column;" />
+
+            <ui:VisualElement name="switch-prompt" style="display: none; flex-direction: column;" />
+
+            <ui:VisualElement name="gate-note" class="cas-warning" style="display: none; margin-top: 12px;">
+                <ui:Label name="gate-note-text" text="⚠ Continue is disabled until plugin configuration is complete and Firebase is configured." class="cas-warning__text" />
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+        <ui:VisualElement class="cas-footer">
+            <ui:Button name="btn-refresh" text="↻  Refresh" class="cas-btn cas-btn--soft cas-btn--sm" />
+            <ui:Button name="btn-back" text="Back" class="cas-btn cas-btn--sm" style="min-width: 90px;" />
+            <ui:Button name="btn-continue" text="Continue" class="cas-btn cas-btn--primary cas-btn--sm" style="min-width: 100px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
