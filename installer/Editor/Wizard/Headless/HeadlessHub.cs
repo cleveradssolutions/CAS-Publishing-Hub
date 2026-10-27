@@ -231,6 +231,7 @@ namespace CAS.Publishing.Installer.Wizard
                 report["ok"] = true;
                 report["state"] = "installed";
                 Say(report, "Nothing left to install — every default component is present.");
+                HeadlessInstallTelemetry.Finished(InstallStatePath, IsRegistered, DateTime.UtcNow);
                 AppendStatus(report, catalog);
                 return;
             }
@@ -358,19 +359,41 @@ namespace CAS.Publishing.Installer.Wizard
             var result = new MigrationRunner().Apply(plan);
             report["executed"] = result.ExecutedCount;
 
+            var warnings = WarningCount(report);
             if (!result.Success)
             {
+                HeadlessInstallTelemetry.ApplyFailed(InstallStatePath, plan, warnings, result.Failures, DateTime.UtcNow);
                 foreach (var f in result.Failures) Say(report, $"failed: {f}");
                 Fail(report, "Apply failed — the manifest may be partially updated; inspect with " +
                              "'git status' / 'git diff Packages/manifest.json'.");
                 return;
             }
 
+            HeadlessInstallTelemetry.Applied(InstallStatePath, plan, warnings, DateTime.UtcNow);
             report["ok"] = true;
             report["state"] = "resolving";
             Say(report, $"Applied {result.ExecutedCount} action(s) to Packages/manifest.json. Unity " +
                         "resolves the packages on its next launch — run Install again until the " +
                         "state is 'installed'.");
+        }
+
+        private static string InstallStatePath => HeadlessInstallTelemetry.DefaultPath(ProjectRoot);
+
+        // The "warning: …" lines this run has shown the agent so far — what install_started reports
+        // as warnings, like the wizard's confirmation dialog count.
+        private static int WarningCount(JObject report)
+        {
+            var count = 0;
+            foreach (var m in (JArray)report["messages"])
+                if (((string)m).StartsWith("warning:", StringComparison.Ordinal)) count++;
+            return count;
+        }
+
+        private static bool IsRegistered(string id)
+        {
+            foreach (var pkg in UnityEditor.PackageManager.PackageInfo.GetAllRegisteredPackages())
+                if (pkg.name == id) return true;
+            return false;
         }
 
         private static string Describe(MigrationAction action)
