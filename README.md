@@ -13,7 +13,7 @@ SDK — and its package catalog. Each release is a commit on `main` tagged with 
 `Window → Package Manager → + → Add package from git URL…`:
 
 ```
-https://github.com/cleveradssolutions/CAS-Publishing-Hub.git?path=/installer#1.0.9
+https://github.com/cleveradssolutions/CAS-Publishing-Hub.git?path=/installer#1.1.0
 ```
 
 The Hub adds the catalog itself (`https://github.com/cleveradssolutions/CAS-Publishing-Hub.git?path=/metadata`, from `main`, so catalog updates arrive

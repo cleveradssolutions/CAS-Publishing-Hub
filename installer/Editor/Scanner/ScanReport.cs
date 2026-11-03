@@ -274,6 +274,9 @@ namespace CAS.Publishing.Installer.Scanner
         /// states are then meaningless and the UI should surface this instead.</summary>
         public string ManifestError { get; }
 
+        /// <summary>The resolved package graph at scan time; empty in tests and when UPM can't be read.</summary>
+        public InstalledGraph Installed { get; internal set; } = new InstalledGraph();
+
         internal ScanReport(
             string catalogVersion,
             DateTime scannedAtUtc,

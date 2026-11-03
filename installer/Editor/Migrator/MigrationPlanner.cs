@@ -98,6 +98,8 @@ namespace CAS.Publishing.Installer.Migrator
 
             // Deduplication: track which ids have already produced a RemovePackage.
             var removedIds = new HashSet<string>();
+            // Retired packages (catalog uninstall rules) this plan removes.
+            var retiredRemoved = new List<string>();
 
             // ── Build catalog lookup maps ─────────────────────────────────────
             // Map packageId → PackageRecord for quick scan-result → record lookup.
@@ -172,7 +174,10 @@ namespace CAS.Publishing.Installer.Migrator
                     if (!selection.IsSelected(result.LegacyNpmId)) continue;
 
                     if (result.State == UninstallState.InstalledNeedsRemoval)
+                    {
                         AddRemove(result.LegacyNpmId, removes, removedIds);
+                        retiredRemoved.Add(result.LegacyNpmId);
+                    }
                 }
             }
 
@@ -218,6 +223,12 @@ namespace CAS.Publishing.Installer.Migrator
                     }
                 }
             }
+
+            // ── Keep what a retired package brought in ────────────────────────
+            // Its dependencies would leave with it (Firebase, EDM and IAP came with the old Tenjin
+            // wrapper); list them directly at the installed version instead.
+            if (retiredRemoved.Count > 0)
+                KeepDependencies(retiredRemoved, report, catalog, pkgAdds, gitAdds, warningList);
 
             // ── Assemble in required order ────────────────────────────────────
             var actions = new List<MigrationAction>(
@@ -458,6 +469,32 @@ namespace CAS.Publishing.Installer.Migrator
             return target == VersionTarget.Min
                 ? (min ?? recommended)
                 : (recommended ?? min);
+        }
+
+        private static void KeepDependencies(List<string> retiredRemoved, ScanReport report, PackageCatalog catalog,
+            List<MigrationAction> pkgAdds, List<MigrationAction> gitAdds, List<PlannerWarning> warningList)
+        {
+            var retired = new HashSet<string>();
+            if (catalog.Uninstall != null)
+                foreach (var record in catalog.Uninstall)
+                    if (record?.LegacyNpmIds != null)
+                        foreach (var id in record.LegacyNpmIds)
+                            if (!string.IsNullOrEmpty(id)) retired.Add(id);
+
+            var planned = new HashSet<string>();
+            foreach (var a in pkgAdds)
+                if (a is AddPackage add) planned.Add(add.Id);
+                else if (a is UpdatePackageVersion upd) planned.Add(upd.Id);
+            foreach (var a in gitAdds)
+                if (a is AddGitPackage git) planned.Add(git.Id);
+
+            foreach (var keep in KeptDependencies.Find(retiredRemoved, report.Installed, retired, planned))
+            {
+                pkgAdds.Add(new AddPackage(keep.Id, keep.Version));
+                warningList.Add(new PlannerWarning(keep.Id,
+                    $"{keep.Id} {keep.Version} came with {keep.For} — kept in manifest.json directly so it " +
+                    "stays installed after the removal."));
+            }
         }
 
         /// <summary>

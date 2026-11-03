@@ -493,6 +493,26 @@ namespace CAS.Publishing.Installer.Wizard
             return false;
         }
 
+        /// <summary>
+        /// The version an install would put in the manifest now: for a <c>registryFirst</c> record
+        /// whose registry already has a version ≥ minVersion that version (CAS 4.8.3 from OpenUPM),
+        /// otherwise <see cref="ResolveRecommendedVersion"/>. For display — the version gate keeps
+        /// comparing against the catalog pin.
+        /// </summary>
+        public static string ResolveInstallVersion(string id)
+        {
+            var load = CatalogLoader.Load();
+            if (load.Status == CatalogLoadStatus.Ok && load.Catalog?.External != null)
+                foreach (var e in load.Catalog.External)
+                    if (e != null && e.Id == id)
+                    {
+                        var registry = RegistryVersions.For(e, load.Catalog);
+                        if (!string.IsNullOrEmpty(registry)) return registry;
+                        break;
+                    }
+            return ResolveRecommendedVersion(id);
+        }
+
         public static string ResolveRecommendedVersion(string id)
         {
             var load = CatalogLoader.Load();

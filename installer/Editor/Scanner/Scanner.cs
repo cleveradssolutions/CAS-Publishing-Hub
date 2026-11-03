@@ -154,7 +154,10 @@ namespace CAS.Publishing.Installer.Scanner
                 uninstalls,
                 splitGroups,
                 hash,
-                manifestError);
+                manifestError)
+            {
+                Installed = InstalledGraph.Collect(),
+            };
         }
 
         // ── Hash computation ─────────────────────────────────────────────────

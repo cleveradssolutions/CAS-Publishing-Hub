@@ -31,7 +31,7 @@ namespace CAS.Publishing.Installer.Scanner
         /// markers, the files under Assets/ that reference those markers. Ids without markers or
         /// without matching files produce no hit.
         /// </summary>
-        public static List<Hit> FindReferences(PackageCatalog catalog, IEnumerable<string> removedIds, int maxFiles = 25,
+        public static List<Hit> FindReferences(PackageCatalog catalog, IEnumerable<string> removedIds, int maxFiles = int.MaxValue,
             IReadOnlyCollection<string> excludeAssetPaths = null)
         {
             var hits = new List<Hit>();
@@ -56,10 +56,10 @@ namespace CAS.Publishing.Installer.Scanner
         /// <summary>
         /// Files under Assets/ (scripts and assembly definitions) containing any of the markers.
         /// A plain substring match: the markers are namespaces and type names, distinctive enough
-        /// that a false hit only adds a line to a warning. Capped so a huge project can't stall the
-        /// confirm dialog.
+        /// that a false hit only adds a line to a warning. Every file is listed by default: the confirm
+        /// window scrolls, and a cut-off list hid the scripts that broke the build (QA 1.0.9 B-01).
         /// </summary>
-        public static List<string> FindFiles(IReadOnlyList<string> markers, int maxFiles = 25,
+        public static List<string> FindFiles(IReadOnlyList<string> markers, int maxFiles = int.MaxValue,
             IReadOnlyCollection<string> excludeAssetPaths = null)
         {
             var found = new List<string>();

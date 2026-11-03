@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "1.0.9",
+  "catalogVersion": "1.1.0",
   "registries": {
     "openupm": "https://package.openupm.com",
     "cas": "https://npm.cas.ai/"

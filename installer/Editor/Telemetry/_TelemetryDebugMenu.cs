@@ -7,7 +7,7 @@ namespace CAS.Publishing.Installer.Telemetry
     internal static class TelemetryDebugMenu
     {
         private const string LocalCollector = "http://127.0.0.1:8787";
-        private const string LocalMenuPath = "Assets/CleverAdsSolutions/Hub Debug/Telemetry: Use Local Collector";
+        private const string LocalMenuPath = "Assets/CleverAdsSolutions/Publishing Hub Debug/Telemetry: Use Local Collector";
 
         [MenuItem(LocalMenuPath)]
         private static void ToggleLocal()
@@ -24,7 +24,7 @@ namespace CAS.Publishing.Installer.Telemetry
             return true;
         }
 
-        [MenuItem("Assets/CleverAdsSolutions/Hub Debug/Telemetry: Send Queued Now")]
+        [MenuItem("Assets/CleverAdsSolutions/Publishing Hub Debug/Telemetry: Send Queued Now")]
         private static void SendNow()
         {
             var settings = HubTelemetry.ActiveSettings();

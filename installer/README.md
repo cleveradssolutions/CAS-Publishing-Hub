@@ -27,13 +27,13 @@ CAS ID and the Firebase config on the way.
 ```text
 Integrate the CAS publishing SDK into this Unity project as an AI agent, without opening the Unity Editor.
 1. Make sure no Unity Editor has this project open (Temp/UnityLockfile must not exist) and the git tree is clean; stop and ask me otherwise.
-2. In Packages/manifest.json add the scoped registry { "name": "CAS Publishing", "url": "https://npm.cas.ai/", "scopes": ["ai.cas"] } and the dependencies "ai.cas.installer" and "ai.cas.installer.metadata", both at version 1.0.9. Keep every existing entry.
+2. In Packages/manifest.json add the scoped registry { "name": "CAS Publishing", "url": "https://npm.cas.ai/", "scopes": ["ai.cas"] } and the dependencies "ai.cas.installer" and "ai.cas.installer.metadata", both at version 1.1.0. Keep every existing entry.
 3. Run Unity once in batch mode: <Unity> -batchmode -nographics -quit -projectPath . -logFile -   (Unity = the editor named in ProjectSettings/ProjectVersion.txt).
 4. Read Library/PackageCache/ai.cas.installer@*/AGENTS.md and follow it step by step to the end. Before its Configure step, ask me for the platform (Android or iOS), the CAS ID and the Firebase config file — never invent them.
 5. Finish with the report AGENTS.md describes.
 ```
 
-The `1.0.9` above is this page's version. Everything the agent runs is documented in
+The `1.1.0` above is this page's version. Everything the agent runs is documented in
 `AGENTS.md` inside the package; the entry points are
 `CAS.Publishing.Installer.Wizard.HeadlessHub.Install` / `Configure` / `Status`.
 
@@ -74,7 +74,7 @@ wizard automatically — you never edit `manifest.json` for the SDK components t
    ai.cas.installer
    ```
 
-   Leave the version field empty to get the latest (or type a version, e.g. `1.0.9`).
+   Leave the version field empty to get the latest (or type a version, e.g. `1.1.0`).
 
 Or edit `Packages/manifest.json` directly:
 
@@ -88,7 +88,7 @@ Or edit `Packages/manifest.json` directly:
     }
   ],
   "dependencies": {
-    "ai.cas.installer": "1.0.9"
+    "ai.cas.installer": "1.1.0"
   }
 }
 ```
@@ -101,7 +101,7 @@ No scoped registry needed. `Window → Package Manager → +  → Add package fr
 https://github.com/cleveradssolutions/CAS-Publishing-Hub.git?path=/installer
 ```
 
-Omit the suffix to track the latest release, or pin one with `#1.0.9`. Git installs are
+Omit the suffix to track the latest release, or pin one with `#1.1.0`. Git installs are
 **not** auto-updated by the **About** tab's self-update — to move to a newer release, change
 the `#<version>` tag.
 
@@ -119,7 +119,7 @@ wizard. Once everything is in place the bootstrap **deletes itself** — nothing
 Open the window any time from the menu:
 
 ```
-CAS Hub → Open Hub
+Assets → CleverAdsSolutions → Publishing Hub
 ```
 
 ### First run

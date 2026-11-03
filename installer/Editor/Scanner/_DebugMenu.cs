@@ -9,7 +9,7 @@ namespace CAS.Publishing.Installer.Scanner
 {
     internal static class DebugMenu
     {
-        [MenuItem("Assets/CleverAdsSolutions/Hub Debug/Run Scan")]
+        [MenuItem("Assets/CleverAdsSolutions/Publishing Hub Debug/Run Scan")]
         private static void RunScan()
         {
             var load = CatalogLoader.Load();

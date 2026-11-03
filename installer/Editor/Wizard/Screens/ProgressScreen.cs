@@ -329,23 +329,42 @@ namespace CAS.Publishing.Installer.Wizard
                 return;
             }
 
+            // A package UPM couldn't fetch (bad git tag, missing version) is listed too, with an
+            // error and no path — Classify keeps it out of "resolved" and reports why it failed.
+            var failed = new Dictionary<string, string>();
             var resolved = new HashSet<string>();
             if (_listReq.Status == StatusCode.Success && _listReq.Result != null)
+            {
+                var entries = new List<(string, string, string)>();
                 foreach (var p in _listReq.Result)
-                    resolved.Add(p.name);
+                    entries.Add((p.name, p.resolvedPath,
+                        p.errors != null && p.errors.Length > 0 ? p.errors[0].message : null));
+                resolved = AutoInstallProgress.Classify(entries, failed);
+            }
             else if (_listReq.Status == StatusCode.Failure)
                 Debug.LogWarning($"{LogPrefix} Package list failed: {_listReq.Error?.message}");
             _listReq = null;
 
-            Drive(resolved);
+            Drive(resolved, failed);
         }
 
         /// <summary>Renders the current state and advances the install sequence.</summary>
-        private void Drive(HashSet<string> resolved)
+        private void Drive(HashSet<string> resolved, IDictionary<string, string> failed)
         {
             // First component not yet resolved is the "current" step.
             var next = AutoInstallProgress.FirstUnresolved(_targetIds, resolved);
             TrackResolved(resolved);
+
+            // The issued step came back from UPM with an error: it won't resolve by waiting.
+            if (next >= 0 && AutoInstaller.IssuedIndex >= next &&
+                failed.TryGetValue(_targetIds[next], out var upmError))
+            {
+                Render(resolved, next);
+                FailStep(_targetIds[next],
+                    "Unity Package Manager couldn't install it:\n• " + upmError +
+                    "\n\nCheck the version or git tag in Packages/manifest.json, your network and git, then Retry.");
+                return;
+            }
 
             Render(resolved, next);
 

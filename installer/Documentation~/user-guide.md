@@ -87,7 +87,7 @@ If you received `cas-publishing-bootstrap.unitypackage`:
 ## 2. First launch — the setup wizard
 
 On first run the Hub downloads its component catalog and opens automatically. If it doesn't,
-open it from the menu: **CAS Hub → Open Hub**.
+open it from the menu: **Assets → CleverAdsSolutions → Publishing Hub**.
 
 The wizard walks you through three steps. Steps you have passed stay clickable in the top
 stepper, so you can always go back.
@@ -150,8 +150,8 @@ After the intro the window opens on three tabs:
 | **About** | The installed Hub version. Checks the registry for a newer one and **updates in place** — a red dot on the tab means an update is available. |
 
 Want the guided flow again? The **↺ Setup Wizard** button on the right of the tab bar
-returns you to the step-by-step wizard at any time. `Assets → CleverAdsSolutions → Hub
-(Restart Intro)` restarts the intro from scratch.
+returns you to the step-by-step wizard at any time. `Assets → CleverAdsSolutions → Publishing
+Hub (Restart Intro)` restarts the intro from scratch.
 
 ### Migrating an existing project
 

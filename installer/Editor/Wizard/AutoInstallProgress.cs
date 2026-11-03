@@ -31,5 +31,25 @@ namespace CAS.Publishing.Installer.Wizard
         /// </summary>
         internal static bool IsStepOverdue(double now, double deadline) =>
             deadline > 0 && now >= deadline;
+
+        /// <summary>
+        /// Splits a UPM package list into the names that really resolved and the ones UPM failed to
+        /// fetch. <c>Client.List</c> returns a package whose git tag or version can't be fetched too —
+        /// as version 0.0.0 with no resolved path and the error attached — so a name in the list alone
+        /// does not mean installed. <paramref name="failed"/> receives name → first error message.
+        /// </summary>
+        internal static HashSet<string> Classify(
+            IEnumerable<(string name, string resolvedPath, string error)> packages,
+            IDictionary<string, string> failed)
+        {
+            var resolved = new HashSet<string>();
+            foreach (var (name, path, error) in packages)
+            {
+                if (string.IsNullOrEmpty(name)) continue;
+                if (!string.IsNullOrEmpty(error)) { failed[name] = error; continue; }
+                if (!string.IsNullOrEmpty(path)) resolved.Add(name);
+            }
+            return resolved;
+        }
     }
 }

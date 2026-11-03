@@ -79,7 +79,7 @@ namespace CAS.Publishing.Installer.Ui
 
         /// <summary>
         /// Opens or focuses the legacy IMGUI installer window. No longer in the menu — the
-        /// UI-Toolkit Wizard (Assets/CleverAdsSolutions/Hub) is the product UI; kept as a fallback.
+        /// UI-Toolkit Wizard (Assets/CleverAdsSolutions/Publishing Hub) is the product UI; kept as a fallback.
         /// </summary>
         public static void Open()
         {

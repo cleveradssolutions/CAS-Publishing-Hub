@@ -45,7 +45,10 @@ namespace CAS.Publishing.Installer.Wizard
         /// Applies the version gate to a single component. Extracted into a method rather than
         /// buried in Build so the rule is verifiable without assembling a live ComponentStatus list.
         /// </summary>
-        public void ApplyGate(string componentId, string installedVersion, string pinnedVersion)
+        /// <param name="installVersion">What the update will really install (CAS from OpenUPM can be
+        /// newer than the pin); the message names it. Null → the pin.</param>
+        public void ApplyGate(string componentId, string installedVersion, string pinnedVersion,
+            string installVersion = null)
         {
             if (!CasVersionGate.BlocksFlow(componentId, installedVersion, pinnedVersion)) return;
 
@@ -56,7 +59,7 @@ namespace CAS.Publishing.Installer.Wizard
             Blocked = true;
             BlockMessage =
                 $"CAS {shown} does not support Tenjin attribution. " +
-                $"Update to {pinnedVersion} to continue — the flow cannot proceed without it.";
+                $"Update to {installVersion ?? pinnedVersion} to continue — the flow cannot proceed without it.";
         }
 
         public static ReadyModel Build(List<ComponentStatus> statuses)
@@ -66,8 +69,9 @@ namespace CAS.Publishing.Installer.Wizard
             {
                 var installed = s.Installed;
                 var pin = installed ? ComponentStatusProvider.ResolveRecommendedVersion(s.Id) : null;
+                var installVersion = ComponentStatusProvider.ResolveInstallVersion(s.Id);
                 var blocks = installed && CasVersionGate.BlocksFlow(s.Id, s.Version, pin);
-                if (blocks) m.ApplyGate(s.Id, s.Version, pin);
+                if (blocks) m.ApplyGate(s.Id, s.Version, pin, installVersion);
 
                 m.Rows.Add(new ReadyRow
                 {
@@ -77,7 +81,7 @@ namespace CAS.Publishing.Installer.Wizard
                     Sub = s.Sub,
                     AlreadyInstalled = installed,
                     OutsideUpm = installed && s.OutsideUpm,
-                    RightText = RightTextFor(s, installed, blocks, pin),
+                    RightText = RightTextFor(s, installed, blocks, pin, installVersion),
                 });
                 if (!installed) m.AllInstalled = false;
             }
@@ -88,11 +92,12 @@ namespace CAS.Publishing.Installer.Wizard
         /// The status column. A manual copy is named as such, with the version the SDK reports or
         /// an honest "version unknown" — "✓ Already installed (?)" read as a finished install.
         /// </summary>
-        internal static string RightTextFor(ComponentStatus s, bool installed, bool blocks, string pin)
+        internal static string RightTextFor(ComponentStatus s, bool installed, bool blocks, string pin,
+            string installVersion = null)
         {
-            if (blocks) return $"To update ({pin})";
+            if (blocks) return $"To update ({installVersion ?? pin})";
             if (!installed)
-                return s.Version ?? ComponentStatusProvider.ResolveRecommendedVersion(s.Id) ?? "latest";
+                return s.Version ?? installVersion ?? ComponentStatusProvider.ResolveRecommendedVersion(s.Id) ?? "latest";
             if (s.OutsideUpm) return $"Installed manually ({s.Version ?? "version unknown"})";
             return $"✓ Already installed ({s.Version ?? "?"})";
         }

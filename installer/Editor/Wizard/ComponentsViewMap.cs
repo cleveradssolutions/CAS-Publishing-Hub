@@ -100,8 +100,10 @@ namespace CAS.Publishing.Installer.Wizard
                         }
                         break;
                     }
-                    vm.StatusText = "Manual install";
-                    vm.ActionText = "Connect to Hub";
+                    // A git dependency the registry can now replace: it is not a manual install
+                    // (QA 1.0.9 C-05) — the action moves it to the registry package.
+                    vm.StatusText = "Installed from git";
+                    vm.ActionText = "Switch to UPM";
                     vm.Action = RowAction.ConnectToHub;
                     break;
 

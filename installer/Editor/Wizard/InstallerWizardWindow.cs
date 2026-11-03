@@ -75,6 +75,15 @@ namespace CAS.Publishing.Installer.Wizard
         // Telemetry: whether this window instance already reported hub_opened (SessionState, so the
         // window re-created by a domain reload doesn't count as a new open), and what opened it.
         private const string WindowOpenKey = "CAS.Publishing.Installer.Telemetry.WindowOpen";
+
+        // The user closed the window this editor session: an unfinished intro no longer reopens it on
+        // every domain reload — each script compile or build-target switch (QA 1.0.9 F-17).
+        private const string ClosedByUserKey = "CAS.Publishing.Installer.Wizard.ClosedByUser";
+        private static bool _reloading;
+
+        [InitializeOnLoadMethod]
+        private static void WatchReloads() =>
+            AssemblyReloadEvents.beforeAssemblyReload += () => _reloading = true;
         private const string OpenSourceKey = "CAS.Publishing.Installer.Telemetry.OpenSource";
         private const string LastScreenKey = "CAS.Publishing.Installer.Telemetry.LastScreen";
 
@@ -91,16 +100,17 @@ namespace CAS.Publishing.Installer.Wizard
         private Label _step2;
         private Label _step3;
 
-        [MenuItem("Assets/CleverAdsSolutions/Hub")]
+        [MenuItem("Assets/CleverAdsSolutions/Publishing Hub")]
         public static void Open()
         {
             var window = GetWindow<InstallerWizardWindow>(true, "CAS.AI Publishing Hub", true);
             window.minSize = MinSize;
             window.maxSize = MaxSize;
 
-            // Give a comfy initial size without shrinking a window the user already enlarged.
+            // Give a comfy initial size without shrinking a window the user already enlarged. Never
+            // for a docked tab: setting position undocks it into a floating window (QA 1.0.9 F-17).
             var r = window.position;
-            if (r.width < DefaultSize.x || r.height < DefaultSize.y)
+            if (!window.docked && (r.width < DefaultSize.x || r.height < DefaultSize.y))
                 window.position = new Rect(r.x, r.y,
                     Mathf.Max(r.width, DefaultSize.x), Mathf.Max(r.height, DefaultSize.y));
 
@@ -112,7 +122,7 @@ namespace CAS.Publishing.Installer.Wizard
         /// Ready/Progress are not tabs (you don't normally return to the install picker), so this
         /// is the way back to redo setup from scratch.
         /// </summary>
-        [MenuItem("Assets/CleverAdsSolutions/Hub (Restart Intro)")]
+        [MenuItem("Assets/CleverAdsSolutions/Publishing Hub (Restart Intro)")]
         public static void OpenFirstRun()
         {
             IntroDone = false;
@@ -120,29 +130,6 @@ namespace CAS.Publishing.Installer.Wizard
             Open();
             if (HasOpenInstances<InstallerWizardWindow>())
                 GetWindow<InstallerWizardWindow>()._router?.GoTo("welcome");
-        }
-
-        /// <summary>Top-level entry — testers looked for the Hub in the main menu bar, not under
-        /// Assets/CleverAdsSolutions (which reads as the ad-SDK settings menu). Same window.</summary>
-        [MenuItem("CAS Hub/Open Hub")]
-        public static void OpenFromMainMenu() => Open();
-
-        /// <summary>Main-menu shortcut straight to the Components tab. Deliberately works before the
-        /// intro too (explicit user intent beats the first-run Ready default — ResolveStartScreenPure
-        /// restores any valid saved screen id regardless of <see cref="IntroDone"/>).</summary>
-        [MenuItem("CAS Hub/Components")]
-        public static void OpenAtComponents()
-        {
-            SessionState.SetString(CurrentScreenKey, "components");
-            Open();
-            // A fresh Open() already landed on Components via ResolveStartScreen; only navigate an
-            // ALREADY-open window that's on a different screen (same pattern as OpenAtConfigure).
-            if (HasOpenInstances<InstallerWizardWindow>())
-            {
-                var router = GetWindow<InstallerWizardWindow>()._router;
-                if (router != null && router.Current != "components")
-                    router.GoTo("components");
-            }
         }
 
         /// <summary>
@@ -159,23 +146,27 @@ namespace CAS.Publishing.Installer.Wizard
             // re-invokes OnEnter, even for the current screen). Leave them be — the Configure screen
             // rescans on its own Refresh/OnEnter cadence anyway. (HasOpenInstances first, so
             // GetWindow never creates a window just to check.)
-            if (HasOpenInstances<InstallerWizardWindow>() &&
-                GetWindow<InstallerWizardWindow>()._router?.Current == "configure")
+            // An open window — docked as a background tab, say — is switched to Configure where it is:
+            // no Open(), which would focus it and pull it to the front over the user's work (F-17).
+            var open = FindOpen();
+            if (open != null)
+            {
+                if (open._router != null && open._router.Current != "configure")
+                    open._router.GoTo("configure");
                 return;
+            }
 
+            // A fresh Open() previews Configure itself (ResolveStartScreen reads CurrentScreenKey).
             SessionState.SetString(CurrentScreenKey, "configure");
             TagOpenSource("build_target");
             Open();
-            // A fresh Open() already previewed Configure (ResolveStartScreen → "configure", since we
-            // just set CurrentScreenKey) and ran OnEnter once — only navigate an ALREADY-open window
-            // that's on a DIFFERENT screen, so a brand-new window never gets a redundant double
-            // OnEnter/rescan.
-            if (HasOpenInstances<InstallerWizardWindow>())
-            {
-                var router = GetWindow<InstallerWizardWindow>()._router;
-                if (router != null && router.Current != "configure")
-                    router.GoTo("configure");
-            }
+        }
+
+        /// <summary>The open wizard window, found without GetWindow — which focuses (or creates) one.</summary>
+        private static InstallerWizardWindow FindOpen()
+        {
+            var windows = Resources.FindObjectsOfTypeAll<InstallerWizardWindow>();
+            return windows.Length > 0 ? windows[0] : null;
         }
 
         /// <summary>Closes the window if open — used by the All Done screen's Close button.</summary>
@@ -248,10 +239,24 @@ namespace CAS.Publishing.Installer.Wizard
         {
             if (report == null) return;
 
+            // Already on screen (a domain reload re-creates an open window by itself): Open() would
+            // only focus it and undock-resize it over whatever the user was doing (F-17).
+            if (FindOpen() != null)
+            {
+                CAS.Publishing.Installer.Common.InstallReloadSignal.ConsumePending();
+                ScanReportStore.SetLastShownHash(report.Hash);
+                return;
+            }
+
             // First run: always open (idempotent; record hash AFTER so an install/self-delete reload
             // that kills the just-opened window can't latch the hash and suppress later opens).
             if (!IntroDone)
             {
+                // Closed by the user mid-intro: reopen only for a reload the Hub's own install caused.
+                if (SessionState.GetBool(ClosedByUserKey, false) &&
+                    !CAS.Publishing.Installer.Common.InstallReloadSignal.ConsumePending())
+                    return;
+
                 TagOpenSource("auto");
                 Open();
                 ScanReportStore.SetLastShownHash(report.Hash);
@@ -356,6 +361,9 @@ namespace CAS.Publishing.Installer.Wizard
         private void OnDestroy()
         {
             SessionState.SetBool(WindowOpenKey, false);
+            // A close the user made — not a teardown by a reload or a package change mid-install.
+            if (!_reloading && !EditorApplication.isCompiling && !EditorApplication.isUpdating)
+                SessionState.SetBool(ClosedByUserKey, true);
             HubTelemetry.Track("hub_closed", new Dictionary<string, object>
             {
                 ["screen"] = _router?.Current ?? "",
